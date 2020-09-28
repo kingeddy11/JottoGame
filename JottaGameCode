@@ -1,0 +1,276 @@
+# CS 5: Final Project Text-Game (Final)
+# Edward Wu
+# Jotto encapsulated into a class
+#
+ 
+import random
+import webbrowser
+import time
+
+def compguess(i):
+    """compguess takes in an integer value from 0 to 497 and returns a random 5 letter word corresponding to the integer value"""
+    # FLW is the Five Letter Word dictionary that the computer can use
+    FLW = { 1: 'about', 2 : 'above', 3: 'abuse', 4: 'actor', 5: 'acute', 6:'admit', 7: 'adopt', 8: 'adult',
+            9: 'after', 10: 'again', 11: 'agent', 12: 'agree', 13: 'ahead', 14: 'alarm', 15: 'album',
+            16: 'alert', 17: 'alike', 18: 'alive', 19: 'allow', 20: 'alone', 21: 'along', 22: 'alter', 
+            23: 'among', 24: 'anger', 25: 'angle', 26: 'angry', 27: 'apart', 28: 'apple', 29: 'apply', 
+            30: 'arena', 31: 'argue', 32: 'arise', 33: 'array', 34: 'aside', 35: 'asset', 36: 'audio', 
+            37: 'audit', 38: 'avoid', 39: 'award', 40: 'aware', 41: 'badly', 42: 'baker', 43: 'bases', 
+            44: 'basic', 45: 'basis', 46: 'beach', 47: 'began', 48: 'begin', 49: 'begun', 50: 'being', 
+            51: 'below', 52: 'bench', 53: 'billy', 54: 'birth', 55: 'black', 56: 'blame', 57: 'blind', 
+            58: 'block', 59: 'blood', 60: 'board', 61: 'boost', 62: 'booth', 63: 'bound', 64: 'brain', 
+            65: 'brand', 66: 'bread', 67: 'break', 68: 'breed', 69: 'brief', 70: 'bring', 71: 'broad', 
+            72: 'broke', 73: 'brown', 74: 'build', 75: 'built', 76: 'buyer', 77: 'cable', 78: 'calif', 
+            79: 'carry', 80: 'catch', 81: 'cause', 82: 'chain', 83: 'chair', 84: 'chart', 85: 'chase',
+            86: 'cheap', 87: 'check', 88: 'chest', 89: 'chief', 90: 'child', 91: 'china', 92: 'chose', 
+            93: 'civil', 94: 'claim', 95: 'class', 96: 'clean', 97: 'clear', 98: 'click', 99: 'clock', 
+            100: 'close', 101: 'coach', 102: 'coast', 103: 'could', 104: 'count', 105: 'court', 106: 'cover', 
+            107: 'craft', 108: 'crash', 109: 'cream', 110: 'crime', 111: 'cross', 112: 'crowd', 113: 'crown', 
+            114: 'curve', 115: 'cycle', 116: 'daily', 117: 'dance', 118: 'dated', 119: 'dealt', 120: 'death', 
+            121: 'debut', 121: 'delay', 122:'depth', 123: 'doing', 124: 'doubt', 125: 'dozen', 126: 'draft', 
+            127: 'drama', 128: 'drawn', 129: 'dream', 130: 'dress', 131: 'drill', 132: 'drink', 133: 'drive', 
+            134: 'drove', 135: 'dying', 136: 'eager', 137: 'early', 138: 'earth', 139: 'eight', 140: 'elite', 
+            141: 'empty', 141: 'enemy', 142: 'enjoy', 143: 'enter', 144: 'entry', 145: 'equal', 146: 'error', 
+            146: 'event', 147: 'every', 148: 'exact', 149: 'exist', 150: 'extra', 151: 'faith', 152: 'false', 
+            153: 'fault', 154: 'fiber', 155: 'field', 156: 'fifth', 157: 'fifty', 158: 'fight', 159: 'final', 
+            160: 'first', 161: 'fixed', 162: 'flash', 163: 'fleet', 164: 'floor', 165: 'fluid', 166: 'focus', 
+            167: 'force', 168: 'forth', 169: 'forty', 170: 'forum', 171: 'found', 172: 'frame', 173: 'frank', 
+            174: 'fraud', 175: 'fresh', 176: 'front', 177: 'fruit', 178: 'fully', 179: 'funny', 180: 'giant', 
+            181: 'given', 182: 'glass', 183: 'globe', 184: 'going', 185: 'grace', 186: 'grade', 187: 'grand', 
+            188: 'grant', 189: 'grass', 190: 'great', 191: 'green', 192: 'gross', 193: 'group', 194: 'grown', 
+            195: 'guard', 196: 'guess', 197: 'guest', 198: 'guide', 199: 'happy', 200: 'harry', 201: 'heart', 
+            202: 'heavy', 203: 'hence', 204: 'henry', 205: 'horse', 206: 'hotel', 207: 'house', 208: 'human', 
+            209: 'ideal', 210: 'image', 211: 'index', 212: 'inner', 213: 'input', 214: 'issue', 215: 'japan',
+            216: 'jimmy', 217: 'joint', 218: 'jones', 219: 'judge', 220: 'known', 221: 'label', 222: 'large', 
+            223: 'laser', 224: 'later', 225: 'laugh', 226: 'layer', 227: 'learn', 228: 'lease', 228: 'least', 
+            229: 'leave', 230: 'legal', 231: 'level', 232: 'lewis', 233: 'light', 234: 'limit', 235: 'links', 
+            236: 'lives', 237: 'local', 238: 'logic', 239: 'loose', 240: 'lower', 241: 'lucky', 242: 'lunch', 
+            243: 'lying', 244: 'magic', 245: 'major', 246: 'maker', 247: 'march', 248: 'maria', 249: 'match', 
+            250: 'maybe', 251: 'mayor', 252: 'meant', 253: 'media', 254: 'metal', 255: 'might', 256: 'minor', 
+            257: 'minus', 258: 'mixed', 259: 'model', 260: 'money', 261: 'month', 262: 'moral', 263: 'motor', 
+            264: 'mount', 265: 'mouse', 266: 'mouth', 267: 'movie', 268: 'music', 269: 'needs', 270: 'never', 
+            271: 'newly', 272: 'night', 273: 'noise', 274: 'north', 275: 'noted', 276: 'novel', 277: 'nurse', 
+            278: 'occur', 279: 'ocean', 280: 'offer', 281: 'often', 282: 'order', 283: 'other', 284: 'ought', 
+            285: 'paint', 286: 'panel', 287: 'paper', 288: 'party', 289: 'peace', 290: 'peter', 291: 'phase', 
+            292: 'phone', 293: 'photo', 294: 'piece', 295: 'pilot', 296: 'pitch', 297: 'place', 298: 'plain', 
+            299: 'plane', 300: 'plant', 301: 'plate', 302: 'point', 303: 'pound', 304: 'power', 305: 'press', 
+            306: 'price', 307: 'pride', 308: 'prime', 309: 'print', 310: 'prior', 311: 'prize', 312: 'proof', 
+            313: 'proud', 314: 'prove', 315: 'queen', 316: 'quick', 317: 'quiet', 318: 'quite', 319: 'radio', 
+            320: 'raise', 321: 'range', 322: 'rapid', 323: 'ratio', 324: 'reach', 325: 'ready', 326: 'refer', 
+            327: 'right', 328: 'rival', 329: 'river', 330: 'robin', 331: 'roger', 332: 'roman', 333: 'rough', 
+            334: 'round', 335: 'route', 336: 'royal', 337: 'rural', 338: 'scale', 339: 'scene', 340: 'scope', 
+            341: 'score', 342: 'sense', 343: 'serve', 344: 'seven', 345: 'shall', 346: 'shape', 347: 'share', 
+            348: 'sharp', 349: 'sheet', 350: 'shelf', 351: 'shell', 352: 'shift', 353: 'shirt', 354: 'shock', 
+            355: 'shoot', 356: 'short', 357: 'shown', 358: 'sight', 359: 'since', 360: 'sixth', 361: 'sixty', 
+            362: 'sized', 363: 'skill', 364: 'sleep', 365: 'slide', 366: 'small', 367: 'smart', 368: 'smile', 
+            369: 'smith', 370: 'smoke', 371: 'solid', 372: 'solve', 373: 'sorry', 374: 'sound', 375: 'south', 
+            376: 'space', 377: 'spare', 378: 'speak', 379: 'speed', 380: 'spend', 381: 'spent', 382: 'split', 
+            383: 'spoke', 384: 'sport', 385: 'staff', 386: 'stage', 387: 'stake', 389: 'stand', 390: 'start', 
+            391: 'state', 392: 'steam', 393: 'steel', 394: 'stick', 395: 'still', 396: 'stock', 397: 'stone', 
+            398: 'stood', 399: 'store', 400: 'storm', 401: 'story', 402: 'strip', 403: 'stuck', 404: 'study', 
+            405: 'stuff', 406: 'style', 407: 'sugar', 408: 'suite', 409: 'super', 410: 'sweet', 411: 'table', 
+            412: 'taken', 413: 'taste', 414: 'taxes', 415: 'teach', 416: 'teeth', 417: 'terry', 418: 'texas', 
+            419: 'thank', 420: 'theft', 421: 'their', 422: 'theme', 423: 'there', 424: 'these', 425: 'thick', 
+            426: 'thing', 427: 'think', 428: 'third', 429: 'those', 430: 'three', 431: 'threw', 432: 'throw', 
+            433: 'tight', 434: 'times', 435: 'tired', 436: 'title', 437: 'today', 438: 'topic', 439: 'total', 
+            440: 'touch', 441: 'tough', 442: 'tower', 443: 'track', 444: 'trade', 445: 'train', 446: 'treat', 
+            447: 'trend', 448: 'trial', 449: 'tried', 450: 'tries', 451: 'truck', 452: 'truly', 453: 'trust', 
+            454: 'truth', 455: 'twice', 456: 'under', 457: 'undue', 458: 'union', 459: 'unity', 460: 'until', 
+            461: 'upper', 462: 'upset', 463: 'urban', 464: 'usage', 465: 'usual', 466: 'valid', 467: 'value', 
+            468: 'video', 469: 'virus', 470: 'visit', 471: 'vital', 472: 'voice', 473: 'waste', 474: 'watch', 
+            475: 'water', 476: 'wheel', 477: 'where', 478: 'which', 479: 'while', 480: 'white', 481: 'whole', 
+            482: 'whose', 483: 'woman', 484: 'women', 485: 'world', 486: 'worry', 487: 'worse', 488: 'worst', 
+            489: 'worth', 490: 'would', 491: 'wound', 492: 'write', 493: 'wrong', 494: 'wrote', 495: 'yield', 
+            496: 'young', 497: 'youth'
+            }
+    return FLW[i]
+
+def removeOne(e, S):
+    """ takes in an element e and a string S
+    returns a new string with one e removed from S
+    (if S does not contain e, S itself is returned)
+    Note: this is the element (character) passed in the input variable e
+    this is NOT the string 'e'  (that would be less flexible!)
+    """
+    if e not in S:
+        return S      # if not present, return S
+    elif e == S[0]:
+        return S[1:]  # if the initial character, return the rest of S
+    else:
+        return S[0:1] + removeOne(e,S[1:])  # else keep the first + recurse!
+
+def jscore(S,T):
+        """ jscore returns the jotto score of S compared to T. This jotto score is the number of characters in S that are shared by T.
+            Repeated letters are counted multiple times, as long as they appear multiple times in both strings.
+            arguments: S and T are both strings
+        """
+        score=0
+        if S=='' or T=='':
+            return 0
+        elif S[0] in T:
+            return score + 1 + jscore(S[1:], removeOne(S[0], T))
+        else:
+            return score + jscore(S[1:], T)
+ 
+class JottoGame:
+    """ an Jotto rivalry that tracks, saves, and loads games """
+    
+ 
+    def __init__(self):
+        """ the constructor
+            should include count of guesses for each round, the computer's secret word, and the user's secret word
+        """
+        self.delay = 2.5 
+        self.num_guesses = 0
+        # get the computer's secret word choice
+        self.compsecretword = compguess(random.choice(list(range(498))))
+        #print("My secret word is", self.compsecretword)
+        # gets the user's secret word choice
+        self.usersecretword = input("Please choose a secret five letter word for the computer to guess: ")
+        self.usersecretword = self.usersecretword.lower()
+
+        # sanity-check user's input
+        while len(self.usersecretword)!=5:
+            print("    I didn't get what you meant by", user)
+            self.usersecretword = input("Please choose again: ")
+            self.usersecretword = self.usersecretword.lower()
+ 
+ 
+    def __repr__(self):
+        """ the representation function
+             should return a string of some sort
+        """
+        s = ''
+        s += "We have guessed" + str(self.num_guesses) + "times.\n"
+        return s
+ 
+    def play_one_round(self):
+        """ plays one round """
+
+ 
+        # get the user's guess for the computer's secret word
+        print()
+        userguess = input("Please input a five letter word you think the computer chose: ")
+        userguess = userguess.lower()
+ 
+        # sanity-check user's input
+        while len(userguess)!=5:
+            print("    I didn't get what you meant by", userguess)
+            userguess = input("Please choose again: ")
+            userguess = userguess.lower()
+ 
+        # compares the userguess and the computersecretword to get the user's score
+        userscore = jscore(userguess, self.compsecretword)
+        print("You scored a total of this many points:", userscore)
+        time.sleep(self.delay)
+        if userscore == 5:
+            return "user"
+ 
+        # now it is the computers turn to guess the user's secret word
+        computerguess = compguess(random.choice(list(range(498))))
+
+ 
+        # compares the userguess and the computersecretword to get the user's score
+        computerscore = jscore(computerguess, self.usersecretword)
+        print()
+        print("I guess", computerguess, "which gets a score of", computerscore)
+        
+ 
+    def status(self):
+        """ prints the current status for the number of guesses """
+        print("\n+ Current tally +")
+        print("    Number of guesses so far:", self.num_guesses)
+        print()
+ 
+ 
+    def menu(self):
+        """ prints the menu """
+        print()
+        self.status()
+        time.sleep(self.delay)
+        print("Menu:")
+        print("  (1) Continue our Jotto rivalry")
+        print("  (2) Load our game")
+        print("  (4) Save our game")
+        print("  (8) Quit")
+        print()
+        uc = input("Your choice: ")
+        try:
+            uc = int(uc)  # try converting to an integer
+            if uc not in [1,2,4,8,42]:  # Easter egs welcome!
+                print("    Didn't recognize that input\n")
+            else:
+                return uc  # _must_ be a 1, 2, 4, or 42
+    
+        except ParseError as e:  # it wasn't an integer...
+            print("    Didn't understand that input\n")
+            # print("The error was:", e)
+        
+        return self.menu()
+    
+    def play_one_game(self):
+        """play_one_game plays a full game of jotto"""
+        while True:
+            result = self.play_one_round()
+            #counts the number of guesses so far
+            self.num_guesses+=1
+            print()
+            print('Guesses so far:', self.num_guesses)
+            print("Result is", result)
+            time.sleep(self.delay)
+            if result == "user":
+                print("You win!")
+                time.sleep(self.delay)
+                return
+            print()
+            playagain=input("Do you want to continue playing? Y/N: ") # asks the user for two choices Y/N if they want to continue playing. If you input anything other character it will continue playing.
+            if playagain=='N':
+                return self.menu
+
+    
+    def play(self):
+        """ hosts a series of games or turns """
+        while True:
+            userchoice = self.menu()  # prints the welcome and menu
+    
+            if userchoice == 1:
+                self.play_one_game()
+    
+            if userchoice == 8:
+                print("Til next time!")
+                break
+    
+            if userchoice == 4:
+                self.save_game("gamefile.txt")
+    
+            if userchoice == 2:
+                self.load_game("gamefile.txt")
+                print("Welcome back!")
+    
+            if userchoice == 42:  # Lofi!
+                webbrowser.open_new_tab("https://www.youtube.com/watch?v=5qap5aO4i9A")
+    
+    
+    
+    def save_game(self, filename):
+        """ save to a file """
+        f = open(filename,"w")  # open file for writing
+        data = [self.num_guesses]
+        print(data,file=f)
+        f.close()
+        print(filename, " saved.")
+    
+    
+    def load_game(self, filename):
+        """ load from a file """
+        f = open(filename,"r")  # open file for reading
+        data = eval(f.read())   # evaluate the results as a Python object
+        f.close()
+        self.num_guesses = data[0]
+        print(filename, " loaded.")
+            
+# create a game object, g
+g = JottoGame()
+    
+# play when run
+g.play()
