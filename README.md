@@ -1,1 +1,2 @@
 # JottoGame
+I was able to successfully create a game of Jotta between the user and the computer. The user is able to input the words he or she would like to guess and the computer chooses a random word. I have also created an option menu for saving the game and continuing it at another time. The option menu gives the user four choices of: continuing the game, saving the game, loading the game, and quitting the game  
